@@ -1,0 +1,12 @@
+syntax = "proto3";
+package loyallabs.loyal.loyal;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/LoyalLabs/loyal/x/loyal/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}
