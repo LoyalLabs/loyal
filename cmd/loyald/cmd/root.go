@@ -232,7 +232,11 @@ func overwriteFlagDefaults(c *cobra.Command, defaults map[string]string) {
 			if err := f.Value.Set(val); err != nil {
 				panic(err)
 			}
+<<<<<<< HEAD
 	}
+=======
+		}
+>>>>>>> gofumpt
 	}
 	for key, val := range defaults {
 		set(c.Flags(), key, val)

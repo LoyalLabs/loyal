@@ -160,6 +160,37 @@ sync-docs:
 	aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION_ID} --profile terraform --path "/*" ;
 .PHONY: sync-docs
 
+###############################################################################
+###                           Tests & Simulation                            ###
+###############################################################################
+
+include sims.mk
+
+PACKAGES_UNIT=$(shell go list ./... | grep -v -e '/tests/e2e')
+PACKAGES_E2E=$(shell go list ./... | grep '/e2e')
+TEST_PACKAGES=./...
+TEST_TARGETS := test-unit test-unit-cover test-race test-e2e
+
+test-unit: ARGS=-timeout=5m -tags='norace'
+test-unit: TEST_PACKAGES=$(PACKAGES_UNIT)
+test-unit-cover: ARGS=-timeout=5m -tags='norace' -coverprofile=coverage.txt -covermode=atomic
+test-unit-cover: TEST_PACKAGES=$(PACKAGES_UNIT)
+test-race: ARGS=-timeout=5m -race
+test-race: TEST_PACKAGES=$(PACKAGES_UNIT)
+# test-e2e: ARGS=-timeout=25m -v
+# test-e2e: TEST_PACKAGES=$(PACKAGES_E2E)
+$(TEST_TARGETS): run-tests
+
+run-tests:
+ifneq (,$(shell which tparse 2>/dev/null))
+	@echo "--> Running tests"
+	@go test -mod=readonly -json $(ARGS) $(TEST_PACKAGES) | tparse
+else
+	@echo "--> Running tests"
+	@go test -mod=readonly $(ARGS) $(TEST_PACKAGES)
+endif
+
+.PHONY: run-tests $(TEST_TARGETS)
 
 ###############################################################################
 ###                                Linting                                  ###
