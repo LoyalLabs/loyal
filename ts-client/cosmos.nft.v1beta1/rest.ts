@@ -153,6 +153,7 @@ export interface V1Beta1Class {
   uri_hash?: string;
 
   /**
+   * data is the app specific metadata of the NFT class. Optional
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -235,6 +236,7 @@ export interface V1Beta1NFT {
   uri_hash?: string;
 
   /**
+   * data is an app specific data of the NFT. Optional
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *

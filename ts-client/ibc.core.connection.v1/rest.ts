@@ -146,19 +146,10 @@ export interface V1ConnectionEnd {
    */
   versions?: V1Version[];
 
-  /**
-   * State defines if a connection is in one of the following states:
-   * INIT, TRYOPEN, OPEN or UNINITIALIZED.
-   *
-   *  - STATE_UNINITIALIZED_UNSPECIFIED: Default State
-   *  - STATE_INIT: A connection end has just started the opening handshake.
-   *  - STATE_TRYOPEN: A connection end has acknowledged the handshake step on the counterparty
-   * chain.
-   *  - STATE_OPEN: A connection end has completed the handshake.
-   */
+  /** current state of the connection end. */
   state?: V1State;
 
-  /** Counterparty defines the counterparty chain associated with a connection end. */
+  /** counterparty chain associated with this connection. */
   counterparty?: V1Counterparty;
 
   /**
@@ -185,6 +176,8 @@ export interface V1Counterparty {
    * given connection.
    */
   connection_id?: string;
+
+  /** commitment merkle prefix of the counterparty chain. */
   prefix?: V1MerklePrefix;
 }
 
@@ -219,6 +212,7 @@ export interface V1IdentifiedClientState {
   client_id?: string;
 
   /**
+   * client state
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -296,19 +290,10 @@ export interface V1IdentifiedConnection {
    */
   versions?: V1Version[];
 
-  /**
-   * State defines if a connection is in one of the following states:
-   * INIT, TRYOPEN, OPEN or UNINITIALIZED.
-   *
-   *  - STATE_UNINITIALIZED_UNSPECIFIED: Default State
-   *  - STATE_INIT: A connection end has just started the opening handshake.
-   *  - STATE_TRYOPEN: A connection end has acknowledged the handshake step on the counterparty
-   * chain.
-   *  - STATE_OPEN: A connection end has completed the handshake.
-   */
+  /** current state of the connection end. */
   state?: V1State;
 
-  /** Counterparty defines the counterparty chain associated with a connection end. */
+  /** counterparty chain associated with this connection. */
   counterparty?: V1Counterparty;
 
   /**
@@ -356,6 +341,7 @@ export interface V1QueryClientConnectionsResponse {
   proof?: string;
 
   /**
+   * height at which the proof was generated
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -368,6 +354,7 @@ export interface V1QueryClientConnectionsResponse {
 
 export interface V1QueryConnectionClientStateResponse {
   /**
+   * client state associated with the channel
    * IdentifiedClientState defines a client state with an additional client
    * identifier field.
    */
@@ -380,6 +367,7 @@ export interface V1QueryConnectionClientStateResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -392,6 +380,7 @@ export interface V1QueryConnectionClientStateResponse {
 
 export interface V1QueryConnectionConsensusStateResponse {
   /**
+   * consensus state associated with the channel
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -461,6 +450,7 @@ export interface V1QueryConnectionConsensusStateResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -478,6 +468,7 @@ which the proof was retrieved.
 */
 export interface V1QueryConnectionResponse {
   /**
+   * connection associated with the request identifier
    * ConnectionEnd defines a stateful object on a chain connected to another
    * separate one.
    * NOTE: there must only be 2 defined ConnectionEnds to establish
@@ -492,6 +483,7 @@ export interface V1QueryConnectionResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -511,6 +503,7 @@ export interface V1QueryConnectionsResponse {
   connections?: V1IdentifiedConnection[];
 
   /**
+   * pagination response
    * PageResponse is to be embedded in gRPC response messages where the
    * corresponding request message has used PageRequest.
    *
@@ -522,6 +515,7 @@ export interface V1QueryConnectionsResponse {
   pagination?: V1Beta1PageResponse;
 
   /**
+   * query block height
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine

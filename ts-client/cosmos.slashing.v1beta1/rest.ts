@@ -119,6 +119,7 @@ export interface V1Beta1QueryParamsResponse {
 
 export interface V1Beta1QuerySigningInfoResponse {
   /**
+   * val_signing_info is the signing info of requested val cons address
    * ValidatorSigningInfo defines a validator's signing info for monitoring their
    * liveness activity.
    */

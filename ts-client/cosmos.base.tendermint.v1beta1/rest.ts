@@ -182,6 +182,7 @@ export interface TenderminttypesBlock {
  */
 export interface TenderminttypesHeader {
   /**
+   * basic block info
    * Consensus captures the consensus rules for processing a block in the blockchain,
    * including all blockchain data structures and the rules of the application's
    * state transition machine.
@@ -194,42 +195,65 @@ export interface TenderminttypesHeader {
 
   /** @format date-time */
   time?: string;
+
+  /** prev block info */
   last_block_id?: TypesBlockID;
 
   /**
    * hashes of block data
+   * commit from validators from the last block
    * @format byte
    */
   last_commit_hash?: string;
 
-  /** @format byte */
+  /**
+   * transactions
+   * @format byte
+   */
   data_hash?: string;
 
   /**
    * hashes from the app output from the prev block
+   * validators for the current block
    * @format byte
    */
   validators_hash?: string;
 
-  /** @format byte */
+  /**
+   * validators for the next block
+   * @format byte
+   */
   next_validators_hash?: string;
 
-  /** @format byte */
+  /**
+   * consensus params for current block
+   * @format byte
+   */
   consensus_hash?: string;
 
-  /** @format byte */
+  /**
+   * state after txs from the previous block
+   * @format byte
+   */
   app_hash?: string;
 
-  /** @format byte */
+  /**
+   * root hash of all results from the txs from the previous block
+   * @format byte
+   */
   last_results_hash?: string;
 
   /**
    * consensus info
+   * evidence included in the block
    * @format byte
    */
   evidence_hash?: string;
 
-  /** @format byte */
+  /**
+   * original proposer of the block
+   * @format byte
+   */
   proposer_address?: string;
 }
 
@@ -264,6 +288,7 @@ export interface Tendermintv1Beta1Block {
  */
 export interface Tendermintv1Beta1Header {
   /**
+   * basic block info
    * Consensus captures the consensus rules for processing a block in the blockchain,
    * including all blockchain data structures and the rules of the application's
    * state transition machine.
@@ -276,37 +301,57 @@ export interface Tendermintv1Beta1Header {
 
   /** @format date-time */
   time?: string;
+
+  /** prev block info */
   last_block_id?: TypesBlockID;
 
   /**
    * hashes of block data
+   * commit from validators from the last block
    * @format byte
    */
   last_commit_hash?: string;
 
-  /** @format byte */
+  /**
+   * transactions
+   * @format byte
+   */
   data_hash?: string;
 
   /**
    * hashes from the app output from the prev block
+   * validators for the current block
    * @format byte
    */
   validators_hash?: string;
 
-  /** @format byte */
+  /**
+   * validators for the next block
+   * @format byte
+   */
   next_validators_hash?: string;
 
-  /** @format byte */
+  /**
+   * consensus params for current block
+   * @format byte
+   */
   consensus_hash?: string;
 
-  /** @format byte */
+  /**
+   * state after txs from the previous block
+   * @format byte
+   */
   app_hash?: string;
 
-  /** @format byte */
+  /**
+   * root hash of all results from the txs from the previous block
+   * @format byte
+   */
   last_results_hash?: string;
 
   /**
    * consensus info
+   * evidence included in the block
    * @format byte
    */
   evidence_hash?: string;
@@ -315,6 +360,8 @@ export interface Tendermintv1Beta1Header {
    * proposer_address is the original block proposer address, formatted as a Bech32 string.
    * In Tendermint, this type is `bytes`, but in the SDK, we convert it to a Bech32 string
    * for better UX.
+   *
+   * original proposer of the block
    */
   proposer_address?: string;
 }
@@ -586,6 +633,8 @@ export interface TypesVote {
 
   /** @format int32 */
   round?: number;
+
+  /** zero if vote is nil. */
   block_id?: TypesBlockID;
 
   /** @format date-time */
@@ -611,7 +660,11 @@ Tendermint.
 export interface V1Beta1ABCIQueryResponse {
   /** @format int64 */
   code?: number;
+
+  /** nondeterministic */
   log?: string;
+
+  /** nondeterministic */
   info?: string;
 
   /** @format int64 */
@@ -642,9 +695,12 @@ RPC method.
 */
 export interface V1Beta1GetBlockByHeightResponse {
   block_id?: TypesBlockID;
+
+  /** Deprecated: please use `sdk_block` instead */
   block?: TenderminttypesBlock;
 
   /**
+   * Since: cosmos-sdk 0.47
    * Block is tendermint type Block, with the Header proposer address
    * field converted to bech32 string.
    */
@@ -657,9 +713,12 @@ method.
 */
 export interface V1Beta1GetLatestBlockResponse {
   block_id?: TypesBlockID;
+
+  /** Deprecated: please use `sdk_block` instead */
   block?: TenderminttypesBlock;
 
   /**
+   * Since: cosmos-sdk 0.47
    * Block is tendermint type Block, with the Header proposer address
    * field converted to bech32 string.
    */
@@ -675,15 +734,7 @@ export interface V1Beta1GetLatestValidatorSetResponse {
   block_height?: string;
   validators?: Tendermintv1Beta1Validator[];
 
-  /**
-   * PageResponse is to be embedded in gRPC response messages where the
-   * corresponding request message has used PageRequest.
-   *
-   *  message SomeResponse {
-   *          repeated Bar results = 1;
-   *          PageResponse page = 2;
-   *  }
-   */
+  /** pagination defines an pagination for the response. */
   pagination?: V1Beta1PageResponse;
 }
 
@@ -714,15 +765,7 @@ export interface V1Beta1GetValidatorSetByHeightResponse {
   block_height?: string;
   validators?: Tendermintv1Beta1Validator[];
 
-  /**
-   * PageResponse is to be embedded in gRPC response messages where the
-   * corresponding request message has used PageRequest.
-   *
-   *  message SomeResponse {
-   *          repeated Bar results = 1;
-   *          PageResponse page = 2;
-   *  }
-   */
+  /** pagination defines an pagination for the response. */
   pagination?: V1Beta1PageResponse;
 }
 

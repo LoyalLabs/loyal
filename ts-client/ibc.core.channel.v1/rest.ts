@@ -137,6 +137,7 @@ sending packets and one end capable of receiving packets.
 */
 export interface V1Channel {
   /**
+   * current state of the channel end
    * State defines if a channel is in one of the following states:
    * CLOSED, INIT, TRYOPEN, OPEN or UNINITIALIZED.
    *
@@ -151,12 +152,15 @@ export interface V1Channel {
   state?: V1State;
 
   /**
+   * whether the channel is ordered or unordered
    * - ORDER_NONE_UNSPECIFIED: zero-value for channel ordering
    *  - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
    * which they were sent.
    *  - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
    */
   ordering?: V1Order;
+
+  /** counterparty channel end */
   counterparty?: V1Counterparty;
 
   /**
@@ -205,6 +209,7 @@ identifier fields.
 */
 export interface V1IdentifiedChannel {
   /**
+   * current state of the channel end
    * State defines if a channel is in one of the following states:
    * CLOSED, INIT, TRYOPEN, OPEN or UNINITIALIZED.
    *
@@ -219,12 +224,15 @@ export interface V1IdentifiedChannel {
   state?: V1State;
 
   /**
+   * whether the channel is ordered or unordered
    * - ORDER_NONE_UNSPECIFIED: zero-value for channel ordering
    *  - ORDER_UNORDERED: packets can be delivered in any order, which may differ from the order in
    * which they were sent.
    *  - ORDER_ORDERED: packets are delivered exactly in the order which they were sent
    */
   ordering?: V1Order;
+
+  /** counterparty channel end */
   counterparty?: V1Counterparty;
 
   /**
@@ -252,6 +260,7 @@ export interface V1IdentifiedClientState {
   client_id?: string;
 
   /**
+   * client state
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -437,6 +446,7 @@ export interface V1Packet {
   data?: string;
 
   /**
+   * block height after which the packet times out
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -481,6 +491,7 @@ export interface V1PacketState {
 
 export interface V1QueryChannelClientStateResponse {
   /**
+   * client state associated with the channel
    * IdentifiedClientState defines a client state with an additional client
    * identifier field.
    */
@@ -493,6 +504,7 @@ export interface V1QueryChannelClientStateResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -505,6 +517,7 @@ export interface V1QueryChannelClientStateResponse {
 
 export interface V1QueryChannelConsensusStateResponse {
   /**
+   * consensus state associated with the channel
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -574,6 +587,7 @@ export interface V1QueryChannelConsensusStateResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -591,6 +605,7 @@ proof was retrieved.
 */
 export interface V1QueryChannelResponse {
   /**
+   * channel associated with the request identifiers
    * Channel defines pipeline for exactly-once packet delivery between specific
    * modules on separate blockchains, which has at least one end capable of
    * sending packets and one end capable of receiving packets.
@@ -604,6 +619,7 @@ export interface V1QueryChannelResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -622,6 +638,7 @@ export interface V1QueryChannelsResponse {
   channels?: V1IdentifiedChannel[];
 
   /**
+   * pagination response
    * PageResponse is to be embedded in gRPC response messages where the
    * corresponding request message has used PageRequest.
    *
@@ -633,6 +650,7 @@ export interface V1QueryChannelsResponse {
   pagination?: V1Beta1PageResponse;
 
   /**
+   * query block height
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -648,6 +666,7 @@ export interface V1QueryConnectionChannelsResponse {
   channels?: V1IdentifiedChannel[];
 
   /**
+   * pagination response
    * PageResponse is to be embedded in gRPC response messages where the
    * corresponding request message has used PageRequest.
    *
@@ -659,6 +678,7 @@ export interface V1QueryConnectionChannelsResponse {
   pagination?: V1Beta1PageResponse;
 
   /**
+   * query block height
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -683,6 +703,7 @@ export interface V1QueryNextSequenceReceiveResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -707,6 +728,7 @@ export interface V1QueryPacketAcknowledgementResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -721,6 +743,7 @@ export interface V1QueryPacketAcknowledgementsResponse {
   acknowledgements?: V1PacketState[];
 
   /**
+   * pagination response
    * PageResponse is to be embedded in gRPC response messages where the
    * corresponding request message has used PageRequest.
    *
@@ -732,6 +755,7 @@ export interface V1QueryPacketAcknowledgementsResponse {
   pagination?: V1Beta1PageResponse;
 
   /**
+   * query block height
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -756,6 +780,7 @@ export interface V1QueryPacketCommitmentResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -770,6 +795,7 @@ export interface V1QueryPacketCommitmentsResponse {
   commitments?: V1PacketState[];
 
   /**
+   * pagination response
    * PageResponse is to be embedded in gRPC response messages where the
    * corresponding request message has used PageRequest.
    *
@@ -781,6 +807,7 @@ export interface V1QueryPacketCommitmentsResponse {
   pagination?: V1Beta1PageResponse;
 
   /**
+   * query block height
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -802,6 +829,7 @@ export interface V1QueryPacketReceiptResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -817,6 +845,7 @@ export interface V1QueryUnreceivedAcksResponse {
   sequences?: string[];
 
   /**
+   * query block height
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -832,6 +861,7 @@ export interface V1QueryUnreceivedPacketsResponse {
   sequences?: string[];
 
   /**
+   * query block height
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine

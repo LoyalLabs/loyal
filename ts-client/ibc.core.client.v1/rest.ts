@@ -136,6 +136,7 @@ field.
 */
 export interface V1ConsensusStateWithHeight {
   /**
+   * consensus state height
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -146,6 +147,7 @@ export interface V1ConsensusStateWithHeight {
   height?: V1Height;
 
   /**
+   * consensus state
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -237,6 +239,7 @@ export interface V1IdentifiedClientState {
   client_id?: string;
 
   /**
+   * client state
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -331,7 +334,7 @@ export interface V1Params {
 method.
 */
 export interface V1QueryClientParamsResponse {
-  /** Params defines the set of IBC light client parameters. */
+  /** params defines the parameters of the module. */
   params?: V1Params;
 }
 
@@ -342,6 +345,7 @@ which the proof was retrieved.
 */
 export interface V1QueryClientStateResponse {
   /**
+   * client state associated with the request identifier
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -408,6 +412,7 @@ export interface V1QueryClientStateResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -427,6 +432,7 @@ export interface V1QueryClientStatesResponse {
   client_states?: V1IdentifiedClientState[];
 
   /**
+   * pagination response
    * PageResponse is to be embedded in gRPC response messages where the
    * corresponding request message has used PageRequest.
    *
@@ -451,6 +457,7 @@ export interface V1QueryConsensusStateHeightsResponse {
   consensus_state_heights?: V1Height[];
 
   /**
+   * pagination response
    * PageResponse is to be embedded in gRPC response messages where the
    * corresponding request message has used PageRequest.
    *
@@ -464,6 +471,7 @@ export interface V1QueryConsensusStateHeightsResponse {
 
 export interface V1QueryConsensusStateResponse {
   /**
+   * consensus state associated with the client identifier at the given height
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -530,6 +538,7 @@ export interface V1QueryConsensusStateResponse {
   proof?: string;
 
   /**
+   * height at which the proof was retrieved
    * Normally the RevisionHeight is incremented at each height while keeping
    * RevisionNumber the same. However some consensus algorithms may choose to
    * reset the height in certain conditions e.g. hard forks, state-machine
@@ -545,6 +554,7 @@ export interface V1QueryConsensusStatesResponse {
   consensus_states?: V1ConsensusStateWithHeight[];
 
   /**
+   * pagination response
    * PageResponse is to be embedded in gRPC response messages where the
    * corresponding request message has used PageRequest.
    *
@@ -562,6 +572,7 @@ Query/UpgradedClientState RPC method.
 */
 export interface V1QueryUpgradedClientStateResponse {
   /**
+   * client state associated with the request identifier
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *
@@ -628,6 +639,7 @@ Query/UpgradedConsensusState RPC method.
 */
 export interface V1QueryUpgradedConsensusStateResponse {
   /**
+   * Consensus state associated with the request identifier
    * `Any` contains an arbitrary serialized protocol buffer message along with a
    * URL that describes the type of the serialized message.
    *

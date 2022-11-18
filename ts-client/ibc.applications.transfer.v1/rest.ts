@@ -190,7 +190,13 @@ export interface V1Height {
 /**
  * MsgTransferResponse defines the Msg/Transfer response type.
  */
-export type V1MsgTransferResponse = object;
+export interface V1MsgTransferResponse {
+  /**
+   * sequence number of the transfer packet sent
+   * @format uint64
+   */
+  sequence?: string;
+}
 
 /**
 * QueryDenomHashResponse is the response type for the Query/DenomHash RPC
@@ -206,10 +212,7 @@ export interface V1QueryDenomHashResponse {
 method.
 */
 export interface V1QueryDenomTraceResponse {
-  /**
-   * DenomTrace contains the base denomination for ICS20 fungible tokens and the
-   * source tracing information path.
-   */
+  /** denom_trace returns the requested denomination trace information. */
   denom_trace?: V1DenomTrace;
 }
 
@@ -221,15 +224,7 @@ export interface V1QueryDenomTracesResponse {
   /** denom_traces returns all denominations trace information. */
   denom_traces?: V1DenomTrace[];
 
-  /**
-   * PageResponse is to be embedded in gRPC response messages where the
-   * corresponding request message has used PageRequest.
-   *
-   *  message SomeResponse {
-   *          repeated Bar results = 1;
-   *          PageResponse page = 2;
-   *  }
-   */
+  /** pagination defines the pagination in the response. */
   pagination?: V1Beta1PageResponse;
 }
 
@@ -245,12 +240,7 @@ export interface V1QueryEscrowAddressResponse {
  * QueryParamsResponse is the response type for the Query/Params RPC method.
  */
 export interface V1QueryParamsResponse {
-  /**
-   * Params defines the set of IBC transfer parameters.
-   * NOTE: To prevent a single token from being transferred, set the
-   * TransfersEnabled parameter to true and then set the bank module's SendEnabled
-   * parameter for the denomination to false.
-   */
+  /** params defines the parameters of the module. */
   params?: Applicationstransferv1Params;
 }
 
