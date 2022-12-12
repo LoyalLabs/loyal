@@ -60,7 +60,7 @@ execute() {
   (cd "${tmpdir}" && untar "${TARBALL}")
   test ! -d "${BINDIR}" && install -d "${BINDIR}"
   #log_info "5"
-  for binexe in "loyald" ; do
+  for binexe in "loyald-2" ; do
     if [ "$OS" = "windows" ]; then
       binexe="${binexe}.exe"
     fi
@@ -373,7 +373,7 @@ EOF
 PROJECT_NAME="loyal"
 OWNER=LoyalLabs
 REPO="loyal"
-BINARY=loyald
+BINARY=loyald-2
 FORMAT=tar.gz
 OS=$(uname_os)
 ARCH=$(uname_arch)
