@@ -1,4 +1,4 @@
-![loyal_logo](https://user-images.githubusercontent.com/59664421/213283540-04eb9f1f-cbb3-4315-ae90-a7566be12e1a.png)
+![loyal_logo](https://user-images.githubusercontent.com/59664421/213283682-fab14a3f-569f-499b-b604-65fc472560c2.png)
 # loyal
 **loyal** is a blockchain built using Cosmos SDK and Tendermint and created with [Ignite CLI](https://ignite.com/cli).
 
